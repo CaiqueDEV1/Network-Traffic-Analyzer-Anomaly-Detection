@@ -26,5 +26,5 @@ capture = pyshark.FileCapture('discovery_scan_dcerpc_endpoint_mapper.pcapng')
 capture.apply_on_packets(analyzer_packet, timeout=10)
 
 for (src_ip, dst_port), count in connection_count.items():
-    if count > THRESHOLD:
+    if int(dst_port) < 1024 and count > THRESHOLD:
         print(f"[ALERT] IP {src_ip} sent {count} packets to port {dst_port}")
