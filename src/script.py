@@ -2,8 +2,10 @@ import pyshark
 from collections import Counter
 
 
-THRESHOLD = 50
+THRESHOLD = 10
+WHITELIST_PORTS = {20, 21, 22, 23, 25, 53, 80, 110, 143, 443}
 connection_count = Counter()
+
 
 def analyzer_packet(pkt):
     try:
@@ -22,9 +24,9 @@ def analyzer_packet(pkt):
         pass
 
 
-capture = pyshark.FileCapture('discovery_scan_dcerpc_endpoint_mapper.pcapng')
-capture.apply_on_packets(analyzer_packet, timeout=10)
+capture = pyshark.FileCapture('samplescapture.pcapng')
+capture.apply_on_packets(analyzer_packet, timeout=120)
 
 for (src_ip, dst_port), count in connection_count.items():
-    if int(dst_port) < 1024 and count > THRESHOLD:
+    if int(dst_port) < 1024 and count > THRESHOLD and int(dst_port) not in WHITELIST_PORTS:
         print(f"[ALERT] IP {src_ip} sent {count} packets to port {dst_port}")
