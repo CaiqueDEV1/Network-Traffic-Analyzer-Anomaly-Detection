@@ -70,7 +70,7 @@ python src/analyzer.py <path_to_file.pcapng>
 ```bash
 python src/analyzer.py samples/discovery_scan_dcerpc.pcapng
 ```
-
+![Usage](docs/analyzerscript4command.png)
 **Example output:**
 
 ```
@@ -80,6 +80,7 @@ Processing archive: samples/discovery_scan_dcerpc.pcapng
 ...
 [ALERT] IP 10.0.2.17 sent 350 packets to port 135
 ```
+![Usage](docs/analyzerscript3output.png)
 
 ---
 
